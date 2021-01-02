@@ -8,8 +8,9 @@
 /// <param name="address">POID</param>
 /// <param name="buffer">PVOID</param>
 /// <param name="buffer_size">SIZE_T</param>
+/// <param name="size_copied">SIZE_T</param>
 /// <returns>NTSTATUS</returns>
-NTSTATUS Nimt::ReadMemory(_In_ INT process_id,_In_ PVOID address, _In_ PVOID buffer, _In_ SIZE_T buffer_size) {
+NTSTATUS Nimt::ReadMemory(_In_ INT process_id, _In_ PVOID address, _In_ PVOID buffer, _In_ SIZE_T buffer_size, _In_ SIZE_T size_copied) {
 	/*Bellow we initialize the status as a success, and work it down the function*/
 	NTSTATUS status = STATUS_SUCCESS;
 	
@@ -35,8 +36,8 @@ NTSTATUS Nimt::ReadMemory(_In_ INT process_id,_In_ PVOID address, _In_ PVOID buf
 
 		/*Bellow we use a try except couse if this fail we dont BSOD*/
 		__try {
-			/*Bellow we copy the virtual memory to a readable space. We pass nullptr in the end couse here we dont care about the size of the bytes copied. We are passing the structure outside the function*/
-			status = MmCopyVirtualMemory(source, address, target, buffer, buffer_size, UserMode, nullptr);
+			/*Bellow we copy the virtual memory to a readable space.*/
+			status = MmCopyVirtualMemory(source, address, target, buffer, buffer_size, UserMode, &size_copied);
 		}
 		__except (EXCEPTION_EXECUTE_HANDLER) {
 			status = STATUS_UNSUCCESSFUL;
@@ -63,8 +64,9 @@ NTSTATUS Nimt::ReadMemory(_In_ INT process_id,_In_ PVOID address, _In_ PVOID buf
 /// <param name="address">POID</param>
 /// <param name="buffer">PVOID</param>
 /// <param name="buffer_size">SIZE_T</param>
+/// <param name="size_copied">SIZE_T</param>
 /// <returns>NTSTATUS</returns>
-NTSTATUS Nimt::WriteMemory(_In_ INT process_id, _In_ PVOID address, _In_ PVOID buffer, _In_ SIZE_T buffer_size) {
+NTSTATUS Nimt::WriteMemory(_In_ INT process_id, _In_ PVOID address, _In_ PVOID buffer, _In_ SIZE_T buffer_size, _In_ SIZE_T size_copied) {
 	/*Bellow we initialize the status as a success, and work it down the function*/
 	NTSTATUS status = STATUS_SUCCESS;
 
@@ -85,8 +87,8 @@ NTSTATUS Nimt::WriteMemory(_In_ INT process_id, _In_ PVOID address, _In_ PVOID b
 
 		/*Bellow we use a try except couse if this fail we dont BSOD*/
 		__try {
-			/*Bellow we copy the buffer passed from user application to the address in memory. We pass nullptr in the end couse here we dont care about the size of the bytes copied. We are passing the structure outside the function*/
-			status = MmCopyVirtualMemory(target, buffer, source, address, buffer_size, UserMode, nullptr);
+			/*Bellow we copy the buffer passed from user application to the address in memory.*/
+			status = MmCopyVirtualMemory(target, buffer, source, address, buffer_size, UserMode, &size_copied);
 		}
 		__except (EXCEPTION_EXECUTE_HANDLER) {
 			status = STATUS_UNSUCCESSFUL;

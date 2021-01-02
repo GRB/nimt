@@ -13,6 +13,6 @@ namespace Nimt {
 			PSIZE_T NumberOfBytesCopied
 		);
 
-	NTSTATUS ReadMemory(_In_ INT process_id, _In_ PVOID address, _In_ PVOID buffer, _In_ SIZE_T buffer_size);
-	NTSTATUS WriteMemory(_In_ INT process_id, _In_ PVOID address, _In_ PVOID buffer, _In_ SIZE_T buffer_size);
+	NTSTATUS ReadMemory(_In_ INT process_id, _In_ PVOID address, _In_ PVOID buffer, _In_ SIZE_T buffer_size, _In_ SIZE_T size_copied);
+	NTSTATUS WriteMemory(_In_ INT process_id, _In_ PVOID address, _In_ PVOID buffer, _In_ SIZE_T buffer_size, _In_ SIZE_T size_copied);
 }
