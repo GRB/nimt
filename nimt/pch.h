@@ -18,6 +18,6 @@
 /*Bellow we set just a inicial string for when we kdprint*/
 #define DEBUG_TO_PRINT "Nimt: "
 
-/*Bellow are the includes needed for the project*/
+/*Bellow are the includes needed for the project in their respective order*/
 #include <ntifs.h>
 #include <ntddk.h>

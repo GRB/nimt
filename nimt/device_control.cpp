@@ -6,9 +6,9 @@
 /// Function where we control the information passed by the CTL_CODE
 /// inside the stack.Parameters.DeviceIoControl
 /// </summary>
-/// <param name="device_object"></param>
-/// <param name="irp"></param>
-/// <returns></returns>
+/// <param name="device_object">PDEVICE_OBJECT</param>
+/// <param name="irp">PIRP</param>
+/// <returns>NTSTATUS</returns>
 NTSTATUS Nimt::DeviceControl(_In_ PDEVICE_OBJECT device_object, _In_ PIRP irp) {
     /*
     * UNREFERENCED_PARAMETER so that the compiler dont complain we dont do nothing with
